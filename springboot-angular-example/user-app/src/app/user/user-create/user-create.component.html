@@ -1,3 +1,44 @@
-<p>
-  user-create works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <section>
+        <header class="header">
+          <div class="row">
+            <div class="col-md-4">
+              <h1>Users</h1>
+            </div>
+            <div class="col-md-6">
+            </div>
+            <div class="col-md-2">
+            </div>
+          </div>
+
+        </header>
+      </section>
+
+      <section class="main">
+          <div><span>#</span>{{user.id}}</div>
+            <div><label>First Name:<input [(ngModel)]="user.firstName" placeholder="First Name"></label>
+          </div>
+          <div>
+            <label>Last Name:
+              <input [(ngModel)]="user.lastName" placeholder="Last Name">
+            </label>
+          </div>
+          <div>
+            <label>Email:
+              <input [(ngModel)]="user.email" placeholder="eMeil">
+            </label>
+          </div>
+        <div *ngIf="user.id; then update else add;" ></div>
+        <ng-template #add >
+          <button type="button" class="btn btn-success" (click)="saveUser()">OK</button>
+        </ng-template>
+        <ng-template #update >
+          <button type="button" class="btn btn-success" (click)="saveUser()">OK</button>
+        </ng-template>
+        <button type="button" class="btn btn-danger" (click)="goBack()">Cancel</button>
+      </section>
+    </div>
+  </div>
+</div>
