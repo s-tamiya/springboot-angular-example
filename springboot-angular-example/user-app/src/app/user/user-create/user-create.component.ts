@@ -13,7 +13,7 @@ import { UserService } from '../user.service';
 })
 export class UserCreateComponent implements OnInit {
 
-  user: User;
+  user: User ;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,7 +27,10 @@ export class UserCreateComponent implements OnInit {
 
   getUser(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    console.log(id);
+    if (!id) {
+        this.user = new User(); return;
+    }
+    
     this.userService.findById(id)
       .subscribe(user => this.user = user);
   }
@@ -35,10 +38,10 @@ export class UserCreateComponent implements OnInit {
   saveUser(): void {
     if (this.user.id) {
       this.userService.updateUser(this.user)
-        .subscribe(user => this.user = user);
+        .subscribe(u => {this.user = u; console.log(u)});
     } else {
       this.userService.saveUser(this.user)
-        .subscribe(user => this.user = user);
+        .subscribe(u => this.user = u);
     }
   }
 

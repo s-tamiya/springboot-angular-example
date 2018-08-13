@@ -46,14 +46,14 @@ export class UserService {
     const id = typeof user === 'number' ? user : user.id;
     const url = `this.${this.apiUrl}/${id}`;
 
-    return this.http.delete(url, httpOptions).pipe(
-      tap(_ => console.log(`delete hero id=${id}`)),
-      catchError((error: any) => error.json().error || 'Server error')
+    return this.http.delete(url).pipe(
+      tap(_ => {console.log(`delete hero id=${id}`); return true;}),
+      catchError((error: any) => {error.json().error || 'Server error'})
     )
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.post(this.apiUrl, user)
+    return this.http.put(this.apiUrl, user)
       .pipe(
           map((res: Response) => res.json()),
           catchError((error: any) => error.json().error || 'Server error')

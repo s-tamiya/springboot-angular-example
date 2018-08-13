@@ -30,13 +30,7 @@
               <input [(ngModel)]="user.email" placeholder="eMeil">
             </label>
           </div>
-        <div *ngIf="user.id; then update else add;" ></div>
-        <ng-template #add >
           <button type="button" class="btn btn-success" (click)="saveUser()">OK</button>
-        </ng-template>
-        <ng-template #update >
-          <button type="button" class="btn btn-success" (click)="saveUser()">OK</button>
-        </ng-template>
         <button type="button" class="btn btn-danger" (click)="goBack()">Cancel</button>
       </section>
     </div>
