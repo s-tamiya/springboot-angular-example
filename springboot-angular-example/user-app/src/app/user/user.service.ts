@@ -21,7 +21,7 @@ export class UserService {
     return this.http.get(this.apiUrl)
       .pipe(
         map((res: Response) => res.json()),
-        catchError((error: any) => error.json().error || 'Server error')
+        catchError((error: any) => error || 'Server error')
       );
   }
 
@@ -30,33 +30,33 @@ export class UserService {
     return this.http.get(url)
         .pipe(
           map((res: Response) => res.json()),
-          catchError((error: any) => error.json().error || 'Server error')
+          catchError((error: any) => error || 'Server error')
         );
   }
 
   saveUser(user: User): Observable<User> {
     return this.http.post(this.apiUrl, user)
       .pipe(
-          map((res: Response) => res.json()),
-          catchError((error: any) => error.json().error || 'Server error')
+         map((res: Response) => res.json()),
+          catchError((error: any) => error || 'Server error')
       );
   }
 
-  deleteUserById(user: User | number): Observable<boolean> {
-    const id = typeof user === 'number' ? user : user.id;
-    const url = `this.${this.apiUrl}/${id}`;
-
-    return this.http.delete(url).pipe(
-      tap(_ => {console.log(`delete hero id=${id}`); return true;}),
-      catchError((error: any) => {error.json().error || 'Server error'})
-    )
-  }
+  // deleteUserById(user: User | number): Observable<User> {
+  //   const id = typeof user === 'number' ? user : user.id;
+  //   const url = `this.${this.apiUrl}/${id}`;
+  //
+  //   return this.http.delete(url).pipe(
+  //     tap(_ => {console.log(`delete hero id=${id}`);}),
+  //     catchError((error: any) => {error.json().error || 'Server error'})
+  //   )
+  // }
 
   updateUser(user: User): Observable<User> {
     return this.http.put(this.apiUrl, user)
       .pipe(
-          map((res: Response) => res.json()),
-          catchError((error: any) => error.json().error || 'Server error')
+          map((res: Response) => res.json(); console.log(res)),
+          catchError((error: any) => console.error(error.statusText) || 'Server error')
       );
   }
 

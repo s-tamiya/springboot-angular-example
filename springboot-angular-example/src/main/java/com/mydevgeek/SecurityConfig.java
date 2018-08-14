@@ -14,32 +14,26 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-private static final String[] PUBLIC_MATCHERS = {
-            "/css/**",
-            "/js/**",
-            "/image/**",
-            "/book/**",
-            "/users/**"
-    };
 
 	@Override
     protected void configure(HttpSecurity http) throws Exception{
         http
-            .cors().and()
-            .csrf().disable()
-            .httpBasic()
-            .and()
+        .csrf().disable()
+        .cors()
+    	.configurationSource(this.corsConfigurationSource())
+    	.and()
             .authorizeRequests()
-            .antMatchers(PUBLIC_MATCHERS).permitAll()
-            .anyRequest().authenticated();
+            	.antMatchers("/users/**").permitAll()
+            	.anyRequest().permitAll();
     }
 	
 	@Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
-        configuration.addAllowedHeader("content-type");
+        configuration.addAllowedHeader(CorsConfiguration.ALL);
         configuration.setAllowedMethods(Arrays.asList("GET","POST","DELETE","PUT","OPTIONS"));
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

@@ -16,7 +16,7 @@
         </header>
       </section>
 
-      <section class="main">
+      <section class="main" *ngIf="user">
           <div><span>#</span>{{user.id}}</div>
             <div><label>First Name:<input [(ngModel)]="user.firstName" placeholder="First Name"></label>
           </div>
